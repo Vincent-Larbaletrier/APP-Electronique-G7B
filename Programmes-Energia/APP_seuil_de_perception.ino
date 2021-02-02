@@ -9,21 +9,24 @@ void seuil_perception()
   char AffichageSeuilMax[100];
 
   /* Détection des seuils */
+  /* Seuil minimum */
   while(digitalRead(SELECT_BUTTON)) {
     for (int i = 500; i >= 20; i--) {
       tone(casque, i);
       frequence_seuil_min = i;
     }  
   }
+  noTone(casque);
   
   delay(3000);
-  
+  /* Seuil maximum */
   while(digitalRead(SELECT_BUTTON)) {
-    for (int j = 10000; j <= 20000; j++) {
+    for (int j = 10000; j <= 20000; j += 10) {
       tone(casque, j);
       frequence_seuil_max = j;
     }  
   }
+  noTone(casque);
 
   /* Affichage moniteur */
   Serial.print("Le seuil de perception auditif minimum est de ");
@@ -35,7 +38,7 @@ void seuil_perception()
   Serial.println(" Hz ");
 
   /* Affichage écran */
-  int x = 64;
+  int x = 0;
   sprintf(AffichageSeuilMin, " %d Hz ", frequence_seuil_min);
   sprintf(AffichageSeuilMax, " %d Hz ", frequence_seuil_max);
   Fill(0);
