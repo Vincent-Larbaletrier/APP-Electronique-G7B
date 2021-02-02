@@ -10,20 +10,22 @@ void seuil_perception()
 
   /* Détection des seuils */
   while(digitalRead(SELECT_BUTTON)) {
-    for (int i = 500; i >= 20; i--) {
+    for (int i = 400; i >= 20; i--) { // précision de 1 Hz
       tone(casque, i);
       frequence_seuil_min = i;
     }  
   }
+  noTone(casque);
   
   delay(3000);
   
   while(digitalRead(SELECT_BUTTON)) {
-    for (int j = 10000; j <= 20000; j++) {
+    for (int j = 10000; j <= 20000; j += 10) { // précision de 10 Hz
       tone(casque, j);
       frequence_seuil_max = j;
     }  
   }
+  noTone(casque);
 
   /* Affichage moniteur */
   Serial.print("Le seuil de perception auditif minimum est de ");
